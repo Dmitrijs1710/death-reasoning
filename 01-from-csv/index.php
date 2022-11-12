@@ -5,6 +5,8 @@ include_once '../src/Killed.php';
 include_once '../src/DeathCollection.php';
 
 $deaths = new DeathCollection();
+
+// Data collection from file and adding to collection
 if (($handle = fopen("vtmec-causes-of-death.csv", "r")) !== FALSE)
 {
     $dataHeader = fgetcsv($handle, 1000);
@@ -52,6 +54,8 @@ if (($handle = fopen("vtmec-causes-of-death.csv", "r")) !== FALSE)
     }
     fclose($handle);
 }
+
+// Data output
 foreach($deaths->filterDeaths('2022-01',null,null,'Mehāniskie') as $key=>$death){
     echo $key . ': ' . $death . PHP_EOL;
 }

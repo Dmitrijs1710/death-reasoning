@@ -6,17 +6,23 @@ include_once '../src/DeathCollection.php';
 
 $collection = new DeathCollection();
 
+// Our selection Url
 $api_url = 'https://data.gov.lv/dati/lv/api/3/action/datastore_search?resource_id=d662c2a3-19f0-4843-a431-b92dc69d40c2&limit=';
-$limit = 100;
+
+// Number of records to retrieve
+// We can input number greater than the number of records and won't get an error
+$limit = 1000;
 
 // Read JSON file
 $json_data = file_get_contents($api_url . $limit);
 
-// Decode JSON data into PHP array
+// Decode JSON data into PHP object
 $response_data = json_decode($json_data);
 
+// Get records from PHP array
 $allData = $response_data->result->records;
 
+// Copy the data from the object to the class
 foreach ($allData as $data){
     if ($data->naves_celonis === DeathCollection::ACCIDENT) {
         $collection->add
@@ -55,7 +61,7 @@ foreach ($allData as $data){
         );
     }
 }
-
+// output from our collection
 foreach ($collection->getAllDeaths() as $key=>$death){
     echo $key . ': ' . $death . PHP_EOL;
 }

@@ -57,11 +57,11 @@ class DeathCollection
     }
 
 
-    public function filterDeaths(?string $date = null, ?string $deathType = null, ?string $circumstance = null, ?string $type = null): ?array
+    public function filterDeaths(?string $date = null, ?string $reason = null, ?string $circumstance = null, ?string $type = null): ?array
     {
-        if(!empty($deathType))
+        if(!empty($reason))
         {
-            $result = $this->getDeathsByReason($deathType);
+            $result = $this->getDeathsByReason($reason);
         } else {
             $result = $this->getAllDeaths();
         }
