@@ -24,9 +24,7 @@ class Death
         return "$this->id | date: $this->date | reason: $this->reason";
     }
 
-    /**
-     * @return string
-     */
+
     public function getReason(): string
     {
         return $this->reason;
