@@ -2,10 +2,12 @@
 
 class Death
 {
+    protected string $id;
     protected string $date;
     protected string $reason;
-    public function __construct(string $date,string $reason)
+    public function __construct(string $id,string $date,string $reason)
     {
+        $this->id = $id;
         $this->date = $date;
         $this->reason = $reason;
     }
@@ -19,7 +21,7 @@ class Death
     }
     public function __toString()
     {
-        return "date: $this->date | reason: $this->reason";
+        return "$this->id | date: $this->date | reason: $this->reason";
     }
 
     /**
@@ -28,6 +30,12 @@ class Death
     public function getReason(): string
     {
         return $this->reason;
+    }
+
+
+    public function getId(): string
+    {
+        return $this->id;
     }
 }
 

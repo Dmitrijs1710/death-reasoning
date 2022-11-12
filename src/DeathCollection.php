@@ -15,13 +15,18 @@ class DeathCollection
         $this->deaths = [];
     }
 
-    public function add(string $key, Death $element) :void{
-        $this->deaths[$key] = $element;
+    public function add(Death $element) :void{
+        $this->deaths[] = $element;
     }
 
     public function getDeathsByKey(string $key): ?Death
     {
-        return $this->deaths[$key]?? null;
+        foreach($this->deaths as $death){
+            if ($death->getId()===$key){
+                return $death;
+            }
+        }
+        return null;
     }
 
     public function getDeathsByDate(string $date): array{
@@ -52,7 +57,7 @@ class DeathCollection
     }
 
 
-    public function filterDeaths(?string $date = null, ?string $deathType = null, ?string $condition = null, ?string $type = null): ?array
+    public function filterDeaths(?string $date = null, ?string $deathType = null, ?string $circumstance = null, ?string $type = null): ?array
     {
         if(!empty($deathType))
         {
@@ -74,14 +79,14 @@ class DeathCollection
         }
 
 
-        if(!empty($condition))
+        if(!empty($circumstance))
         {
             foreach ($result as $key=>$death)
             {
                 if (!$death instanceof Accident)
                 {
                     unset($result[$key]);
-                } else if(strpos(strtolower(implode('', $death->getConditions())), strtolower($condition)) === false)
+                } else if(strpos(strtolower(implode('', $death->getCircumstances())), strtolower($circumstance)) === false)
                 {
                     unset($result[$key]);
                 }

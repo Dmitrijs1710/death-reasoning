@@ -1,8 +1,8 @@
 <?php
-include_once 'Death.php';
-include_once 'DeathCollection.php';
-include_once 'Accident.php';
-include_once 'Killed.php';
+include_once '../src/Death.php';
+include_once '../src/Accident.php';
+include_once '../src/Killed.php';
+include_once '../src/DeathCollection.php';
 
 $deaths = new DeathCollection();
 if (($handle = fopen("vtmec-causes-of-death.csv", "r")) !== FALSE)
@@ -16,9 +16,9 @@ if (($handle = fopen("vtmec-causes-of-death.csv", "r")) !== FALSE)
         if ($data[2] === "Nevardarbīga nāve") {
             $deaths->add
             (
-                $data[0],
                 new Accident
                 (
+                    $data[0],
                     $data[1],
                     $data[2],
                     explode(';', $data[3])
@@ -27,9 +27,9 @@ if (($handle = fopen("vtmec-causes-of-death.csv", "r")) !== FALSE)
         } else if ($data[2] === "Nāves cēlonis nav noteikts") {
             $deaths->add
             (
-                $data[0],
                 new Death
                 (
+                    $data[0],
                     $data[1],
                     $data[2]
                 )
@@ -39,9 +39,9 @@ if (($handle = fopen("vtmec-causes-of-death.csv", "r")) !== FALSE)
             $data[4] = array_values($data[4]);
             $deaths->add
             (
-                $data[0],
                 new Killed
                 (
+                    $data[0],
                     $data[1],
                     $data[2],
                     $data[4],
