@@ -12,9 +12,7 @@ class Death
         $this->reason = $reason;
     }
 
-    /**
-     * @return string
-     */
+
     public function getDate(): string
     {
         return $this->date;

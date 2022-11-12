@@ -18,7 +18,7 @@ $response_data = json_decode($json_data);
 $allData = $response_data->result->records;
 
 foreach ($allData as $data){
-    if ($data->naves_celonis === "Nevardarbīga nāve") {
+    if ($data->naves_celonis === DeathCollection::ACCIDENT) {
         $collection->add
         (
             new Accident
@@ -29,7 +29,7 @@ foreach ($allData as $data){
                 explode(';', $data->nevardarbigas_naves_celonis)
             )
         );
-    } else if ($data->naves_celonis === "Nāves cēlonis nav noteikts") {
+    } else if ($data->naves_celonis === DeathCollection::UNKNOWN) {
         $collection->add
         (
             new Death
@@ -57,6 +57,11 @@ foreach ($allData as $data){
 }
 
 foreach ($collection->getAllDeaths() as $key=>$death){
+    echo $key . ': ' . $death . PHP_EOL;
+}
+echo 'Number of deaths from collection: ' . count($collection->getAllDeaths()) . PHP_EOL;
+echo PHP_EOL;
+foreach ($collection->getDeathsByReason(DeathCollection::KILLED) as $key=>$death){
     echo $key . ': ' . $death . PHP_EOL;
 }
 

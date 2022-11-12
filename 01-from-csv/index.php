@@ -13,7 +13,7 @@ if (($handle = fopen("vtmec-causes-of-death.csv", "r")) !== FALSE)
         if (!$data){
             break;
         }
-        if ($data[2] === "Nevardarbīga nāve") {
+        if ($data[2] === DeathCollection::ACCIDENT) {
             $deaths->add
             (
                 new Accident
@@ -24,7 +24,7 @@ if (($handle = fopen("vtmec-causes-of-death.csv", "r")) !== FALSE)
                     explode(';', $data[3])
                 )
             );
-        } else if ($data[2] === "Nāves cēlonis nav noteikts") {
+        } else if ($data[2] === DeathCollection::UNKNOWN) {
             $deaths->add
             (
                 new Death
@@ -55,7 +55,7 @@ if (($handle = fopen("vtmec-causes-of-death.csv", "r")) !== FALSE)
 foreach($deaths->filterDeaths('2022-01',null,null,'Mehāniskie') as $key=>$death){
     echo $key . ': ' . $death . PHP_EOL;
 }
-echo count($deaths->filterDeaths('2022-04','Nāve')) . PHP_EOL;
+echo count($deaths->filterDeaths('2022-01',DeathCollection::KILLED,'Pašnāv')) . PHP_EOL;
 
 echo($deaths->getDeathsByKey('b19e5a524ae78f625d15dde6080b6a6faf67bd75') . PHP_EOL);
 

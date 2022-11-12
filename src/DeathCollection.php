@@ -45,7 +45,7 @@ class DeathCollection
         foreach ($this->deaths as $key=>$death){
             if(strpos(strtolower($death->getReason()), strtolower($reason))===0)
             {
-                $result[$key] = $death;
+                $result[] = $death;
             }
         }
         return $result;
